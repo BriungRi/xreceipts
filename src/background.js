@@ -1,18 +1,22 @@
 import { addReceipt } from "./idb.js";
 
-async function downloadBlob(blob, filename, saveAs) {
-  const url = URL.createObjectURL(blob);
+function blobToDataUrl(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(blob);
+  });
+}
 
-  try {
-    return await chrome.downloads.download({
-      url,
-      filename,
-      conflictAction: "uniquify",
-      saveAs: Boolean(saveAs)
-    });
-  } finally {
-    URL.revokeObjectURL(url);
-  }
+async function downloadBlob(blob, filename, saveAs) {
+  const dataUrl = await blobToDataUrl(blob);
+  return chrome.downloads.download({
+    url: dataUrl,
+    filename,
+    conflictAction: "uniquify",
+    saveAs: Boolean(saveAs)
+  });
 }
 
 function getSettings() {
