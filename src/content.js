@@ -61,6 +61,27 @@ async function sendReceiptRequest(article) {
   return chrome.runtime.sendMessage({ type: "TAKE_RECEIPT", payload });
 }
 
+function hideOpenMenus() {
+  const dropdowns = Array.from(document.querySelectorAll('[data-testid="Dropdown"]'));
+  const previous = dropdowns.map((node) => ({
+    node,
+    visibility: node.style.visibility,
+    opacity: node.style.opacity
+  }));
+
+  dropdowns.forEach((node) => {
+    node.style.visibility = "hidden";
+    node.style.opacity = "0";
+  });
+
+  return () => {
+    previous.forEach(({ node, visibility, opacity }) => {
+      node.style.visibility = visibility;
+      node.style.opacity = opacity;
+    });
+  };
+}
+
 async function handleReceiptClick(event) {
   event.preventDefault();
   event.stopPropagation();
@@ -72,7 +93,13 @@ async function handleReceiptClick(event) {
 
   try {
     showToast("Saving receipt...");
-    const response = await sendReceiptRequest(lastActiveTweet);
+    const restoreMenus = hideOpenMenus();
+    let response;
+    try {
+      response = await sendReceiptRequest(lastActiveTweet);
+    } finally {
+      restoreMenus();
+    }
     if (!response?.ok) {
       throw new Error(response?.error || "Failed to save receipt.");
     }

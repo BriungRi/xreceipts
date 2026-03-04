@@ -26,6 +26,13 @@ function getSettings() {
   });
 }
 
+function sanitizeSegment(value, fallback) {
+  const trimmed = (value || "").trim();
+  const cleaned = trimmed.replace(/[\\/:*?"<>|]+/g, "-").replace(/\s+/g, "-");
+  const safe = cleaned.replace(/[^a-zA-Z0-9_-]/g, "");
+  return safe || fallback;
+}
+
 async function cropToRect(dataUrl, rect, devicePixelRatio) {
   const response = await fetch(dataUrl);
   const blob = await response.blob();
@@ -64,7 +71,10 @@ async function handleReceiptRequest(payload, sender) {
   const timestamp = new Date().toISOString();
   const settings = await getSettings();
   const safeFolder = (settings.folderName || "xreceipts").replace(/[\\/:*?"<>|]+/g, "-");
-  const baseName = `${timestamp.replace(/[:.]/g, "-")}-${receiptId}.png`;
+  const dateStamp = timestamp.slice(0, 10).replace(/-/g, "");
+  const authorSlug = sanitizeSegment(payload.author || payload.handle, "author");
+  const idSlug = sanitizeSegment(payload.tweetId, receiptId);
+  const baseName = `${dateStamp}_${authorSlug}_${idSlug}.png`;
   const filename = safeFolder ? `${safeFolder}/${baseName}` : baseName;
 
   const downloadId = await downloadBlob(cropped, filename, settings.saveAs);
