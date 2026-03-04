@@ -62,22 +62,27 @@ async function sendReceiptRequest(article) {
 }
 
 function hideOpenMenus() {
+  const menus = Array.from(document.querySelectorAll('[role="menu"]'));
   const dropdowns = Array.from(document.querySelectorAll('[data-testid="Dropdown"]'));
-  const previous = dropdowns.map((node) => ({
+  const nodes = [...new Set([...menus, ...dropdowns])];
+  const previous = nodes.map((node) => ({
     node,
     visibility: node.style.visibility,
-    opacity: node.style.opacity
+    opacity: node.style.opacity,
+    pointerEvents: node.style.pointerEvents,
+    display: node.style.display
   }));
 
-  dropdowns.forEach((node) => {
-    node.style.visibility = "hidden";
-    node.style.opacity = "0";
+  nodes.forEach((node) => {
+    node.style.display = "none";
   });
 
   return () => {
-    previous.forEach(({ node, visibility, opacity }) => {
+    previous.forEach(({ node, visibility, opacity, pointerEvents, display }) => {
       node.style.visibility = visibility;
       node.style.opacity = opacity;
+      node.style.pointerEvents = pointerEvents;
+      node.style.display = display;
     });
   };
 }
