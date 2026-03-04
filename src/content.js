@@ -64,7 +64,9 @@ async function sendReceiptRequest(article) {
 function hideOpenMenus() {
   const menus = Array.from(document.querySelectorAll('[role="menu"]'));
   const dropdowns = Array.from(document.querySelectorAll('[data-testid="Dropdown"]'));
-  const nodes = [...new Set([...menus, ...dropdowns])];
+  const navs = Array.from(document.querySelectorAll('[role="navigation"]'));
+  const tabs = Array.from(document.querySelectorAll('[data-testid="ScrollSnap-List"]'));
+  const nodes = [...new Set([...menus, ...dropdowns, ...navs, ...tabs])];
   const previous = nodes.map((node) => ({
     node,
     visibility: node.style.visibility,
