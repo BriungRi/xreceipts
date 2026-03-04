@@ -2,6 +2,12 @@
 
 Save tweet receipts from X: capture a screenshot of the tweet and store its contents for search.
 
+# Demo
+
+https://github.com/user-attachments/assets/f72c092a-1792-47db-b845-87a30429e264
+
+<img width="360" height="595" alt="image" src="https://github.com/user-attachments/assets/0a40a8a6-2930-4f8d-8040-3edb3e1454c4" />
+
 ## What it does
 
 - Adds a **🧾 Take Receipt** item to the tweet overflow menu.
