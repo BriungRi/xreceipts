@@ -142,7 +142,7 @@ function injectReceiptMenu(dropdown) {
   }
 
   const menuItem = buildMenuItem(template);
-  dropdown.insertBefore(menuItem, dropdown.firstChild);
+  dropdown.appendChild(menuItem);
   dropdown.dataset.xreceiptsReady = "true";
 }
 
