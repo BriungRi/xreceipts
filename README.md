@@ -11,9 +11,20 @@ Save tweet receipts from X: capture a screenshot of the tweet and store its cont
 
 ## Install (Chrome)
 
-1. Open `chrome://extensions`.
-2. Enable **Developer mode**.
-3. Click **Load unpacked** and select this folder.
+### Option A: Download the release (recommended)
+
+1. Download the latest release ZIP from GitHub.
+2. Unzip it to a folder on your computer.
+3. Open `chrome://extensions`.
+4. Enable **Developer mode**.
+5. Click **Load unpacked** and select the unzipped folder.
+
+### Option B: Use the repo
+
+1. Clone this repo.
+2. Open `chrome://extensions`.
+3. Enable **Developer mode**.
+4. Click **Load unpacked** and select this folder.
 
 ## Usage
 
