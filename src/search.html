@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>X Receipts</title>
+    <link rel="stylesheet" href="./search.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div>
+          <p class="eyebrow">X Receipts</p>
+          <h1>Search receipts</h1>
+          <p class="subhead">Find saved tweets by text, author, or handle.</p>
+        </div>
+        <button id="openSettings" class="button ghost" type="button">Settings</button>
+      </header>
+
+      <section class="search">
+        <input
+          id="search"
+          type="search"
+          placeholder="Search receipts"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <p id="summary" class="summary"></p>
+      </section>
+
+      <section id="list" class="list"></section>
+    </div>
+    <script type="module" src="./search.js"></script>
+  </body>
+</html>

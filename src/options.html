@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>X Receipts Settings</title>
+    <link rel="stylesheet" href="./options.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="header">
+        <p class="eyebrow">Settings</p>
+        <h1>Receipt storage</h1>
+        <p class="subhead">Choose where screenshots are saved.</p>
+      </header>
+
+      <section class="panel">
+        <label class="field">
+          <span>Folder name inside Downloads</span>
+          <input id="folder" type="text" placeholder="xreceipts" />
+        </label>
+
+        <label class="toggle">
+          <input id="saveAs" type="checkbox" />
+          <span>Ask me where to save each receipt</span>
+        </label>
+
+        <div class="actions">
+          <button id="save" class="button primary">Save settings</button>
+          <span id="status" class="status"></span>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="./options.js"></script>
+  </body>
+</html>
